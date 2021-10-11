@@ -11,8 +11,8 @@ app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(require("./Develop/routes/api.js"));
-app.use(require("./Develop/routes/homeroutes.js"));
+app.use(require("./routes/api.js"));
+app.use(require("./routes/homeroutes.js"));
 
 app.use(express.static("public"));
 
