@@ -16,7 +16,23 @@ router.get("/api/workouts/range", (req, res) => {
             res.json(workoutDB);
         }).catch(err => {
             console.log(err);
-            res.sendStatus(500);
         })
 });
 
+// Route to get the last workout with total duration of exercise
+router.get("/api/workouts", (req, res) => {
+    Workout.aggregate([
+        {
+            $addFields: {
+                totalDuration: { $sum: "$exercises.duration" },
+                totalWeight: { $sum: "exercise.weight" }
+            }
+        }
+    ])
+        .sort({ day: -1}).limit(1)
+        .then(workoutDB => {
+            res.json(workoutDB);
+        }).catch(err => {
+            console.log(err);
+        })
+})
